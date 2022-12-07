@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/mnt/c/Users/Артём/source/repos/food-manager/.build",
+  "command": "/usr/bin/g++    -g   -o CMakeFiles/calculate.dir/calculate.cpp.o -c /mnt/c/Users/Артём/source/repos/food-manager/calculate.cpp",
+  "file": "/mnt/c/Users/Артём/source/repos/food-manager/calculate.cpp"
+}
+]
