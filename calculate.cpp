@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+
 int get_cal(double height, double weight, int age, std::string sex) {
     double msj_eq = 0;
     double rhb_eq = 0;
@@ -17,7 +18,7 @@ int get_cal(double height, double weight, int age, std::string sex) {
     return cal_passive;
 }
 
-int get_multi(int goal, int activity) {
+double get_multi(int goal, int activity) {
     double multi = 1;
     if (activity == 1){
         multi *= 1.2;
@@ -35,10 +36,10 @@ int get_multi(int goal, int activity) {
         multi *= 1.9;
     }
 
-    if (goal == 1) {
+    if (goal == 3) {
         multi *= 1.15;
     }
-    else if (goal == 2) {
+    else if (goal == 1) {
         multi *= 0.85;
     }
     return multi;
@@ -46,7 +47,7 @@ int get_multi(int goal, int activity) {
 
 
 void get_bmr(int& proteins, int& fats, int& carbohydrates, double& weight, int& your_cal) {
-    proteins = weight * 2.2;
+    proteins = weight * 1.6;
     fats = your_cal / 27;
     carbohydrates = (your_cal - (proteins * 4 + fats * 9)) / 4;
 }
@@ -57,12 +58,11 @@ private:
     double height = 0;
     double weight = 0;
     int age = 0;
-    std::string sex = "";
     int goal = -1;
     int activity = -1;
     std::string level = "visitor"; //Добавить
     std::string username = "";
-    
+    std::string sex = "";
     int cal = 0;
     int proteins = 0;
     int fats = 0;
@@ -94,9 +94,8 @@ public:
         std::cin >> activity;
         cal = get_cal(height, weight, age, sex) * get_multi(goal,activity);
         get_bmr(proteins, fats, carbohydrates, weight, cal);
-
-
-    }
+    };
+    void gen_diet() {}
     void improve_user(){}
     void edit_data() {}
     void add_favorite() {}
@@ -105,12 +104,24 @@ public:
     };
 };
 
+class Recipe
+{
+private:
+    std::string name = "";
+    int cal = 0;
+    int proteins = 0;
+    int fats = 0;
+    int carbohydrates = 0;
+    double frequency = 1;
+    std::string how = "";
+    //Список игридиентов
+    //Картинка
+public:
+    
+};
 int main() {
     User new_user = User();
     new_user.register_user();
     new_user.get_info();
 	return 0;
 }
-//TODO: сделать енам для целей и активности
-//Сделать тестовый набор рецептов (а мб и не тестовый)
-//Написать алгос на дин.проге...
