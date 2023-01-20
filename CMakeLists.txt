@@ -4,6 +4,11 @@ project(Course_work VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_BINARY_DIR}/install" CACHE PATH "..." FORCE)
+endif()
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -11,8 +16,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -25,6 +30,12 @@ set(PROJECT_SOURCES
         constructor.cpp
         constructor.h
         constructor.ui
+        welcome.cpp
+        welcome.h
+        welcome.ui
+        recipe.h
+        recipe.cpp
+        recipe.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -32,17 +43,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET Course_work APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
+
 else()
     if(ANDROID)
         add_library(Course_work SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+
     else()
         add_executable(Course_work
             ${PROJECT_SOURCES}
@@ -51,6 +58,7 @@ else()
 endif()
 
 target_link_libraries(Course_work PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(Course_work PRIVATE Qt6::Sql)
 
 set_target_properties(Course_work PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -60,11 +68,15 @@ set_target_properties(Course_work PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS Course_work
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(Course_work)
 endif()
 
+install(TARGETS Course_work BUNDLE DESTINATION . LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(FILES course_db.db DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+
+
+install(TARGETS Course_work DESTINATION .)
+install(FILES course_db.db DESTINATION .)
