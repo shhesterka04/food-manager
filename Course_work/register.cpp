@@ -81,14 +81,6 @@ void Register::on_birth_edit_valueChanged(int arg1)
     Register::m_birth = QString::number(arg1);;
 }
 
-bool Register::RecordUserData()
-{
-    for(auto& i: this->findChildren<QRadioButton*>())
-    {
-        qDebug() << i->isChecked() << ' ' << i->text();
-    }
-    return true;
-}
 
 void Register::newUser() {
     if(checkPass()){

@@ -20,17 +20,21 @@ public:
     ~Constructor();
     bool connectDB();
     inline  static int user_id = 0;
+    void gen_table();
 
 private slots:
     void on_Update_info_clicked();
 
     void on_Log_out_clicked();
 
-    void on_offer_recipe_button_clicked();
-
     void on_filter_button_clicked();
 
     void on_gen_ratio_button_clicked();
+
+    void on_tableView_clicked(const QModelIndex &index);
+
+
+    void on_recipes_list_doubleClicked(const QModelIndex &index);
 
 signals:
     void on_exit();

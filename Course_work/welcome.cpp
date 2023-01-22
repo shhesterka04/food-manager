@@ -2,16 +2,12 @@
 #include "register.h"
 #include "ui_welcome.h"
 #include "constructor.h"
+#include <QMessageBox>
 
 Welcome::Welcome(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Welcome)
 {
-    if(!connectDB())
-        {
-            qDebug() << "Failed to connect DB";
-        }
-
     ui->setupUi(this);
 }
 
@@ -57,19 +53,12 @@ QString Welcome::getPass() {
 }
 
 bool Welcome::connectDB() {
-    // Create a QSqlDatabase object and set the driver to "QSQLITE"
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    // Set the database name and location
     db.setDatabaseName("./course_db.db");
-
-    // Open the connection to the database
     if (!db.open()) {
         qDebug() << "Cannot open database: " << db.lastError();
         return false;
     }
-    qDebug() << "Connected to the database successfully : " << db.databaseName();
-    qDebug() << db.tables();
     return true;
 }
 
@@ -98,7 +87,7 @@ void Welcome::authorizeUser() {
     userpass = query.value(rec.indexOf("password")).toString();
             if(m_username != username || m_userpass != userpass || userpass == "")
             {
-                qDebug() << "Try again";
+                QMessageBox::information(this, "Ошибка", "Неверный пароль или пользователь отсутствует");
                 m_loginSuccesfull = false;
             }
             else

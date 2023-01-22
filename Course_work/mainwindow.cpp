@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "register.h"
 #include "constructor.h"
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -60,18 +61,12 @@ QString MainWindow::getPass() {
 }
 
 bool MainWindow::connectDB() {
-    // Create a QSqlDatabase object and set the driver to "QSQLITE"
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-
-    // Set the database name and location
     db.setDatabaseName("./course_db.db");
-
-    // Open the connection to the database
     if (!db.open()) {
         qDebug() << "Cannot open database: " << db.lastError();
         return false;
     }
-    qDebug() << "Connected to the database successfully : " << db.databaseName();
     return true;
 }
 
@@ -89,18 +84,14 @@ void MainWindow::authorizeUser() {
 
     QSqlQuery query;
     QSqlRecord rec;
-
-    if(!query.exec(db_input))
-        {
-            qDebug() << "Unable to execute query - exiting" << query.lastError() << " : " << query.lastQuery();
-        }
+    query.exec(db_input);
     rec = query.record();
     query.next();
     username = query.value(rec.indexOf("login")).toString();
     userpass = query.value(rec.indexOf("password")).toString();
             if((m_username != username || m_userpass != userpass) || m_username == "")
             {
-                qDebug() << "Try again";
+                QMessageBox::information(this, "Ошибка", "Неверный пароль или пользователь отсутствует");
                 m_loginSuccesfull = false;
             }
             else
