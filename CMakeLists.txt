@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.14)
 
 if (WIN32)
     project(Course_work LANGUAGES CXX)
@@ -6,10 +6,7 @@ elseif(UNIX)
     project(Course_work)
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo" CACHE STRING "" FORCE)
-
 
 #======================= INCLUSION OF Qt =======================#
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -34,7 +31,7 @@ file(GLOB_RECURSE SOURCES
     "${FORMS_DIR}/*.qrc"
     "${INCLUDE_DIR}/*.h"
     "${SOURCE_DIR}/*.cpp"
-	"${SOURCE_DIR}/*.db"
+        "${SOURCE_DIR}/*.db"
 )
 
 #=================== SETUP EXECTUABLE ====================#
@@ -47,13 +44,13 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_AUTOUIC_SEARCH_PATHS} ${FORMS_DIR})
 
 # Add the executable
-if (WIN32) 
+if (WIN32)
     add_executable(Course_work WIN32 ${SOURCES})
 elseif(UNIX)
     add_executable(Course_work ${SOURCES})
 endif()
 
-# Add the target includes for Course_work 
+# Add the target includes for MY_PROJECT
 target_include_directories(Course_work PRIVATE ${FORMS_DIR})
 target_include_directories(Course_work PRIVATE ${INCLUDE_DIR})
 target_include_directories(Course_work PRIVATE ${SOURCE_DIR})
@@ -62,5 +59,5 @@ target_include_directories(Course_work PRIVATE ${SOURCE_DIR})
 target_link_libraries(Course_work Qt6::Widgets)
 target_link_libraries(Course_work Qt6::Sql)
 
-install(DIRECTORY ${project_BINARY_DIR}/Release/ DESTINATION project/bin)
-#install(TARGETS ${project_SOURCE_DIR}/moscomsport DESTINATION project/bin/src)
+install(TARGETS Course_work DESTINATION .)
+install(DIRECTORY ${Course_work_SOURCE_DIR}/src/src DESTINATION .)

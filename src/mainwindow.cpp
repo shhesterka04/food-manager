@@ -62,7 +62,8 @@ QString MainWindow::getPass() {
 
 bool MainWindow::connectDB() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("./course_db.db");
+    qDebug() << QDir::currentPath();
+    db.setDatabaseName(QDir::currentPath() + "/src/course_db.db");
     if (!db.open()) {
         qDebug() << "Cannot open database: " << db.lastError();
         return false;
