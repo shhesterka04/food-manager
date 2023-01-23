@@ -1,3 +1,9 @@
+/*!
+\file
+\brief Заголовочный файл с описанием класса Register
+Данный файл содержит в себе определение класса Register
+*/
+
 #ifndef REGISTER_H
 #define REGISTER_H
 
@@ -15,7 +21,9 @@
 namespace Ui {
 class Register;
 }
-
+/*!
+\brief Класс окна регистрации
+*/
 class Register : public QDialog
 {
     Q_OBJECT
@@ -35,8 +43,17 @@ public:
     bool checkPass();
 
     void newUser();
+    /*!
+	\brief Метод для вычисления количества калорий покоя в день (минимальный уровень калорий ддя жизни)
+	*/
     int get_cal(double height, double weight, int age, QString sex);
+    /*!
+	\brief Метод для вычисления вариационного коффицента калорий
+	*/
     double get_multi(QString goal, QString activity);
+        /*!
+	\brief Метод для вычисления количества граммов белков, жиров и углеводов по калориям
+	*/
     void get_bmr(int& proteins, int& fats, int& carbohydrates, double weight, int& your_cal);
 
 

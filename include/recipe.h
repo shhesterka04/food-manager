@@ -7,6 +7,9 @@ namespace Ui {
 class Recipe;
 }
 
+/*!
+\brief Класс окна вывода рецепта
+*/
 class Recipe : public QDialog
 {
     Q_OBJECT

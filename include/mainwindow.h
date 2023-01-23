@@ -1,3 +1,9 @@
+/*!
+\file
+\brief Заголовочный файл с описанием класса MainWindow
+Данный файл содержит в себе определение класса MainWindow
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -20,7 +26,9 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
+/*!
+\brief Класс главного рабочего окна
+*/
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -34,8 +42,14 @@ public:
 
 
 private slots:
+    /*!
+	\brief Метод для регистрации пользователя в приложении после нажатия кнопки "Регистрация"
+	*/
     void on_reg_in_clicked();
 
+        /*!
+	\brief Метод для авторизации пользователя в приложении после нажатия кнопки "Авторизация"
+	*/
     void on_log_in_clicked();
 
     void on_exit_in_clicked();
@@ -44,6 +58,9 @@ private slots:
 
     void on_enter_password_textEdited(const QString &arg1);
 
+        /*!
+	\brief Метод для проверки корректности введенных данных и записи аккаунта в Базу данных
+	*/
     void authorizeUser();
 
 private:

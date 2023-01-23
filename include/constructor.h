@@ -1,3 +1,9 @@
+/*!
+\file
+\brief Заголовочный файл с описанием класса Constructor
+Данный файл содержит в себе определение класса Constructor
+*/
+
 #ifndef CONSTRUCTOR_H
 #define CONSTRUCTOR_H
 
@@ -8,9 +14,13 @@
 
 
 namespace Ui {
+
 class Constructor;
 }
-
+/*!
+\brief Класс для работы с основными функциональными элементами приложения:
+ генератором меню и списком рецептов
+*/
 class Constructor : public QWidget
 {
     Q_OBJECT
@@ -29,11 +39,21 @@ private slots:
 
     void on_filter_button_clicked();
 
+    /*!
+	\brief Метод дл генерирования рациона на 3 дня при нажатии кнопки
+	*/
     void on_gen_ratio_button_clicked();
 
+    /*!
+	\brief Метод для вывода рецепта из рациона на экран
+	\param &index индекс элемента таблицы
+	*/
     void on_tableView_clicked(const QModelIndex &index);
 
-
+    /*!
+	\brief Метод для вывода рецепта из базы данных на экран
+	\param &index индекс элемента списка
+	*/
     void on_recipes_list_doubleClicked(const QModelIndex &index);
 
 signals:
