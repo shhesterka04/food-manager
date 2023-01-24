@@ -9,6 +9,20 @@ elseif(UNIX)
     project(Course_work)
 endif()
 
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+	set(doxyfile_in ${CMAKE_SOURCE_DIR})
+
+	configure_file(Doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+	add_custom_target(docs 
+	${DOXYGEN_EXECUTABLE}
+	${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+	COMMENT "Generating API documentation with Doxygen"
+	VERBATIM
+	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+endif()
+
 set(CMAKE_CONFIGURATION_TYPES "Debug;RelWithDebInfo" CACHE STRING "" FORCE)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
